@@ -85,6 +85,7 @@ liquor_cv_fit <- liquor_cv |>
 saveRDS(liquor_cv_fit, "results/liquor_cv_fit.rds")
 
 #2.3b
+
 liquor_cv_fc <- liquor_cv_fit |>
   forecast(h = 1)
 
@@ -118,3 +119,21 @@ liquor_errs <- liquor_cv_fc |>
 
 forecast::dm.test(liquor_errs$arima, liquor_errs$snaive,
                   h = 1, power = 2)
+
+
+# ==========================================
+# PART 3: Forecast Combination
+# ==========================================
+
+#3a
+
+liquor_combo_fc <- liquor_cv_fit |>
+  mutate(combo = (arima + ets) / 2) |>
+  forecast(h = 1)
+
+liquor_combo_fc |>
+  accuracy(liquor, measures = list(RMSE = RMSE, MAE = MAE))
+
+#3b
+
+cor(liquor_errs$arima, liquor_errs$ets)
