@@ -243,7 +243,7 @@ saveRDS(var_results, "results/var_results.rds")
 
 var_results |> knitr::kable(digits = 3)
 
-#4.3b
+#4.3c
 e_var4 <- actual[, "gdp"] - fc_var4[, 1]
 e_bvar <- actual[, "gdp"] - fc_bvar_03[, 1]
 
@@ -365,5 +365,3 @@ direct_race <- function(series, h = 12, r = 3) {
 }
 
 direct_race("CPIAUCSL")
-
-
